@@ -1,0 +1,30 @@
+Patient History
+
+Prepared by
+Edward Daniel
+Worldwide Nursing Community
+North Waziristan
++92 344 28 99 897
+
+Cardiac Patient
+
+Date: 01/01/2026
+Patient Name: John Doe MR No: 12345 Age: 55 Sex: Male
+Language: English Address 123 Main St Contact number 555-1234
+
+1. Chief Complaint
+a. What brings you to the hospital today?
+Patient complains of severe chest pain.
+
+b. Can you describe the symptoms you are experiencing?
+1) Onset (When did it start)
+Started 2 hours ago.
+
+2) Duration (How long have you been experiencing this)
+Continuous.
+3) Intensity
+C. Severe
+4) Progression (Has it been getting worse or better)
+Getting worse.
+
+[NOTE: This is a placeholder mock of parsed live results which contains a few extracted details, some minor OCR/parsing mistakes, and some PHI included.]

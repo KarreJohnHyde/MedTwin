@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  pulmonary:
+    build: ./services/pulmonary
+    ports: ["8001:8001"]
+  fusion:
+    build: ./services/fusion
+    ports: ["8010:8010"]
+    depends_on: [pulmonary]
+  gateway:
+    build: ./gateway
+    ports: ["4000:4000"]
+    environment:
+      PULMONARY_SERVICE_URL: http://pulmonary:8001
+      FUSION_SERVICE_URL: http://fusion:8010
+    depends_on: [pulmonary, fusion]

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: medtwin-mosquitto
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/certs:/mosquitto/config/certs
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+
+  api:
+    image: python:3.11-slim
+    container_name: medtwin-api
+    working_dir: /app
+    environment:
+      - MEDTWIN_MQTT_BROKER=mosquitto
+    volumes:
+      - ../:/app
+    ports:
+      - "8000:8000"
+    command: >
+      bash -c "pip install -r requirements.txt && python -m uvicorn cloud.api.main:app --host 0.0.0.0 --port 8000"
+    depends_on:
+      - mosquitto
+
+  web-twin:
+    image: node:18-alpine
+    container_name: medtwin-web
+    working_dir: /app
+    volumes:
+      - ../web-twin:/app
+    ports:
+      - "3000:3000"
+    command: >
+      sh -c "echo 'Web Twin Placeholder' && sleep infinity"
+
+volumes:
+  mosquitto_data:
+  mosquitto_log:

@@ -1,0 +1,56 @@
+# ============================================================
+# MedTwin — Root .gitignore
+# ============================================================
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+.eggs/
+*.whl
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+*.cover
+
+# === Node / JavaScript ===
+node_modules/
+.next/
+dist/
+*.tsbuildinfo
+
+# === Build artifacts ===
+build/
+out/
+
+# === Blender backups ===
+*.blend1
+*.blend2
+
+# === Archives (keep extracted dirs, not ZIPs) ===
+*.zip
+
+# === IDE / Editor ===
+.vscode/stubs/
+*.swp
+*.swo
+*~
+.idea/
+
+# === OS files ===
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# === Large generated dumps ===
+codex_prompt.txt
+codex_prompt_plans.md
+
+# === Binary report duplicates ===
+*.bin

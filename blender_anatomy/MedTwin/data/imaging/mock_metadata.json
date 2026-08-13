@@ -1,0 +1,12 @@
+[
+    {
+        "patient_id": "sample_01",
+        "has_fracture": true,
+        "image_path": "mock_fracture_01.png"
+    },
+    {
+        "patient_id": "sample_02",
+        "has_fracture": false,
+        "image_path": "mock_normal_02.png"
+    }
+]

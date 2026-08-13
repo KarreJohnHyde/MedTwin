@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./.vscode/stubs"
+    ],
+    "css.lint.unknownAtRules": "ignore"
+}

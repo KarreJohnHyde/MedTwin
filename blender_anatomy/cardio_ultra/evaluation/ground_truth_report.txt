@@ -1,0 +1,332 @@
+Patient History
+
+Prepared by
+Edward Daniel
+Worldwide Nursing Community
+North Waziristan
++92 344 28 99 897
+
+Cardiac Patient
+
+Date: / /
+Patient Name: ......................... MR No: ................ Age: ........... Sex: ............
+Language: ........................ Address ....................... Contact number .................
+
+1. Chief Complaint
+a. What brings you to the hospital today?
+
+..............................................
+
+b. Can you describe the symptoms you are experiencing?
+1) Onset (When did it start)
+
+........................................................
+
+2) Duration (How long have you been experiencing this)
+.......................................................
+3) Intensity
+A. Mild
+B. Moderate,
+C. Severe
+4) Progression (Has it been getting worse or better)
+...........................................................
+
+2
+
+2. History of Present illness
+A. When did you first notice these symptom
+
+.....................................................
+B. Can you describe the pain or discomfort?
+
+......................................................
+
+ Location (Where do you feel the pain)
+
+.....................................................
+
+ Character
+A. Sharp,
+B. Dull,
+C. Pressure-like Burning
+
+ Radiation (Does the pain travel to other areas, such as the arm or jaw)
+
+............................................
+
+ Associated Symptoms (Shortness of breath, sweating, nausea, etc.)
+
+............................................
+C. What triggers or worsens your symptoms?
+(Physical activity, stress, certain foods, cold weather?
+
+..........................................................................
+What relieves your symptoms? (Rest, medications, sitting up?
+
+.............................................................
+
+3. Past Medical History
+A. Have you ever been diagnosed with a heart condition?
+(Hypertension, angina, myocardial infarction, arrhythmias, or heart failure)
+
+3
+
+...............................................................................................................
+...............................................................................................................
+
+B. Do you have any other chronic illnesses?
+
+(Diabetes, kidney disease, or hyperlipidemia)
+
+.........................................................................................................
+.........................................................................................................
+C. Have you had any previous surgeries or procedures?
+(Coronary artery bypass grafting (CABG), angioplasty, pacemaker insertion)
+
+......................................................................................................
+
+......................................................................................................
+
+4. Medication History
+A. Are you currently taking any medications?
+(Include prescription, over-the-counter, herbal, and supplements)
+
+........................ .............................. ......................
+
+........................ .............................. ......................
+
+........................ .............................. ......................
+
+B. Have you recently stopped or changed any medications?
+YES, NO
+If yes, Specify
+.........................................................................
+
+4
+
+........................ .............................. ......................
+
+........................ .............................. ......................
+
+C. Do you have any allergies to medications?
+YES, NO
+If yes, Specify
+............................................................................................................
+
+.............................................................................................................
+
+5. Family History
+A. Does anyone in your family have a history of heart disease?
+YES, NO
+
+If yes, Specify
+.................................................................................................
+B. Details on parents, siblings, or close relatives with conditions like hypertension, heart
+attack, or stroke.
+
+..................................................................................................................
+
+...............................................................................................................
+C. Are there any genetic disorders in the family?
+YES, NO
+If yes, Specify
+...........................................................................................................
+
+5
+
+6. Social History
+A. Do you smoke or use tobacco products? YES , NO
+
+ Duration ................
+ Frequency ................
+ Quantity ................
+
+B. Do you consume alcohol? YES , NO
+
+ Type ................
+ Quantity ................
+ Frequency ................
+C. What is your typical diet like?
+(High-fat, high-salt, or processed food intake)
+.............................................................
+D. Do you exercise regularly? YES , NO
+
+ Type ................
+ Duration ................
+ Frequency of activity ................
+
+E. What is your occupation, and does it involve physical or emotional stress?
+.............................................................................................
+
+7. Review of Systems (Cardiology-Specific)
+A. Do you experience any chest pain or discomfort?
+...............................................................................
+B. Do you have shortness of breath? YES , NO
+(During exertion or at rest)
+............................................................
+C. Do you notice swelling in your legs or ankles? YES , NO
+...........................................................
+D. Have you had any episodes of palpitations or irregular heartbeat? YES , NO
+
+.............................................................
+E. Do you feel fatigued or experience weakness? YES , NO
+F. Have you experienced fainting, dizziness, or light-headedness? YES , NO
+If yes, specify
+..........................................
+G. Do you have a cough, especially at night or when lying flat? YES , NO
+
+6
+8. Lifestyle and Psychosocial Factors
+A. How is your stress level? (Any recent life changes or stressors( e.g. accident's)
+...............................................
+B. Do you have access to regular healthcare? YES , NO
+C. How is your sleep?
+ Quality ................
+ Duration. ...............
+
+...................................................
+D. Do you feel supported by family or friends? YES , NO
+
+9. Functional Assessment
+A. How do your symptoms affect your daily life?
+(Can you climb stairs, walk, or perform household tasks without symptoms)
+
+.......................................................................................
+B. Do you require any assistive devices or help with daily activities? YES , NO
+If yes, specify
+..............................................................................
+
+Documentation Tips
+ Ensure all data is recorded in a systematic manner (SOAP notes: Subjective,
+Objective, Assessment, Plan).
+ Use open-ended questions initially to allow the patient to elaborate, and then follow
+up with specific, focused questions.
+ Observe non-verbal cues such as facial expressions, breathing pattern, and posture.
+ This pattern ensures comprehensive history taking, which is essential for accurate
+diagnosis and effective care planning in a cardiology ward.
+
+Errors and omissions exceptedCI-0212345
+
+CI-02 DOCTOR'S STATEMENT - CRITICAL ILLNESS - HEART RELATED
+
+MEDICAL REPORT TO BE COMPLETED BY THE ATTENDING PHYSICIAN/ SPECIALIST (For any medical report fee incurred in completing this form, it will be borne by (Person Covered)678910111213
+Name of Patient (Person Covered)1415161718198
+New NRIC No.202122232425262728
+Diagnosis2930313233
+(i) Please describe the full and exact diagnosis.343536
+(ii) Date when the illness was FIRST diagnosed? (dd/mm/yyyy)373839
+(iii) Was diagnosis established by investigation? If "Yes", please complete the table below.40
+☐ Yes41
+☐ No42
+Investigations/ Tests	Date and Time	Investigations/Tests Result	Range
+Cardiac Marker (CK)			
+Cardiac Marker (CPK-MB)			
+Cardiac Marker (Troponin T)			
+Cardiac Marker (Troponin I)			
+Chest X-ray			
+Cardiac catheterization			
+ECG			
+ECHO/Other			
+Heart Attack/ Myocardial Infarcion (MI)43
+Patient complain chest pain:44
+☐ Yes (dd/mm/yyyy)45
+☐ No46
+Cardiomyopathy - of specified severity47
+Is there any heart failure / cardiac impairment at present (at the same time of completion of this report)?48
+☐ Yes49
+☐ No50
+If "YES":51
+(i) Please state the severity of cardiac impairment based on New York Heart Association (NYHA) classification?52
+☐ Class I53
+☐ IV54
+Please provide details of current limitations55
+(ii) Is the cardiac impairment likely to be permanent?56
+☐ Yes57
+☐ No58
+(iii) Is the condition of Cardiomyopathy directly related to alcohol or drug abuse?59
+☐ Yes60
+☐ No61
+Serious Coronary Artery Disease62
+Date and time of angiogram performed (dd/mm/yyyy) a.m. / p.m.63
+Please specify the coronary arteries involved and the percentage of stenosis as proven by angiogram / angiographic evidence.64
+Major Coronary Artery	Stenosis Yes	No	Percentage (%) of stenosis
+Left Main Coronary			
+Left Anterior Descending Artery			
+Left Circumflex Artery			
+Right Coronary Artery			
+If other than above, please specify in details:			
+CLM-B40DSCI02-V00-022019-TAKAFUL
+
+Great Eastern Takaful Berhad (916257-H)
+
+Head Office: Menara Great Eastern 303 Jalan Ampang 50450 Kuala Lumpur Telephone: +603 4259 8338 Fax: +603 4259 8808 mySalam CareLine: 1-300-888-938 E-mail: mySalam@greateasterntakaful.com Website: www.greateasterntakaful.com
+
+Page 1 of 2 4678294651656667686970717273
+Coronary Artery Bypass Surgery74
+Date and time surgery: (dd/mm/yyyy) a.m. / p.m.75
+The approach was via:76
+☐ Open-chest surgery7778
+☐ Other than open-chest surgery (i.e. intra-arterial procedure, catheter based techniques, keyhole procedure, laser procedure)798081
+Angioplasty and Other Invasive Treatments for Coronary Artery Disease828384
+Date and time procedure performed: (dd/mm/yyyy) a.m. / p.m.85
+☐ Coronary Artery Balloon Angioplasty86
+☐ Artherectomy87
+☐ Laser treatment or the insertion of a stent88
+☐ Intra-arterial investigative89
+Primary Pulmonary Arterial Hypertension - of Specified severity90
+Cause of pulmonary hypertension:91
+☐ without a known case92
+☐ result of other disease, ie93
+☐ Others, ie94
+Is there any evidence of right ventricular failure95
+☐ Yes96
+☐ No97
+(i) Please state the severity of cardiac impairment based on New York Heart Association (NYHA) classification?98
+☐ Class99
+☐ IV100
+Please provide details of current limitations101
+(ii) Is the cardiac impairment likely to be permanent?102
+☐ Yes103
+☐ No104
+(iii) Will the cardiac impairment improved?105
+☐ Yes106
+☐ No107
+Heart Valve Surgery108
+Date and time surgery: (dd/mm/yyyy) a.m. / p.m.109
+(i) The approach was via:110
+☐ Open heart surgery111
+☐ Intra arterial procedure112
+☐ Key-hole surgery113
+☐ Others:114
+(ii) The procedure done was:115
+☐ Valvotomy / Valvuloplasty116
+☐ Valve repair117
+☐ Valve replacement118
+Surgery to Aorta119
+Date and time surgery: (dd/mm/yyyy) a.m. / p.m.120
+For Surgery to aorta:121
+(i) The approach was via:122
+☐ Thoracotomy123
+☐ Catheter based techniques124
+☐ Laparotomy125
+☐ Key-hole procedure126
+☐ Intra-arterial procedure127
+☐ Laser procedure128
+(ii) The surgery was performed for:129
+☐ Aneurysm130
+☐ Obstruction131
+☐ Dissection132
+☐ Coarctation133
+☐ Others:134
+(iii) The surgery was performed at:135
+☐ Thoracic aorta136
+☐ Abdominal aorta137
+☐ Aortic branches:138
+DECLARATION: TO BE COMPLETED BY THE ATTENDING PHYSICIAN/SPECIALIST
+
+I, the undersigned, certify that I have examined the above Person Covered and all statement made and answers given are true and to the best of my knowledge and belief.139140
+Name:141
+Address:142
+Date: (dd/mm/yyyy)143
+Signature and Official Stamp144
+Page 2 of 2 1343294657145
