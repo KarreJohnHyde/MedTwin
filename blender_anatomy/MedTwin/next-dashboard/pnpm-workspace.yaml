@@ -1,5 +1,5 @@
 allowBuilds:
-  unrs-resolver: set this to true or false
+  unrs-resolver: true
 minimumReleaseAgeExclude:
   - '@types/three@0.185.4'
   - framer-motion@13.0.0
