@@ -1,0 +1,14 @@
+{
+  "name": "medtwin-platform",
+  "version": "1.0.0",
+  "description": "MedTwin Full Stack Platform",
+  "scripts": {
+    "dev": "concurrently \"npm:backend\" \"npm:frontend\" \"npm:open\"",
+    "backend": "uvicorn cloud.api.main:app --reload --port 8000",
+    "frontend": "cd next-dashboard && pnpm run dev",
+    "open": "node -e \"setTimeout(() => require('child_process').exec('start http://localhost:3000'), 4000)\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

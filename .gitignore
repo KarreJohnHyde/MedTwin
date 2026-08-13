@@ -1,0 +1,27 @@
+# Python runtime and test state
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.venv/
+.env
+
+# JavaScript dependencies and generated builds
+node_modules/
+next-dashboard/node_modules/
+.next/
+next-dashboard/.next/
+next-dashboard/
+*.tsbuildinfo
+
+# Local datasets, raw reports, and generated scratch output
+data/
+report*.bin
+artifacts/xgb_heart_model.pkl
+infra/mosquitto/certs/
+*.log
+
+# IDE and operating-system metadata
+.DS_Store
+Thumbs.db
+.vscode/

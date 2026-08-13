@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MedTwin | Anatomy Intelligence Workspace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin:0; overflow:hidden; background:#07111f; color:#e6eefb; font-family:Inter,ui-sans-serif,system-ui,sans-serif; }
+    #canvas-container { position:fixed; inset:0; z-index:0; }
+    #app { position:fixed; inset:0; z-index:2; pointer-events:none; }
+    .interactive { pointer-events:auto; }
+    .panel { background:rgba(10,22,40,.82); backdrop-filter:blur(15px); border:1px solid rgba(148,163,184,.17); box-shadow:0 12px 42px rgba(0,0,0,.23); }
+    .label { color:#8ea1bd; font-size:.65rem; letter-spacing:.08em; text-transform:uppercase; }
+    .metric { background:rgba(21,38,63,.72); border:1px solid rgba(100,116,139,.25); }
+    button, select, input { outline:none; }
+    button:focus-visible, select:focus-visible, input:focus-visible { outline:2px solid #2dd4bf; outline-offset:2px; }
+    .chip { border:1px solid rgba(45,212,191,.38); background:rgba(6,78,59,.38); color:#6ee7d4; }
+    .chip-warn { border-color:rgba(251,191,36,.4); background:rgba(120,53,15,.27); color:#fcd34d; }
+    .pulse { animation:pulse 1.5s infinite; } @keyframes pulse { 50% { opacity:.45; } }
+    #ecg-line { width:100%; height:54px; }
+    .tool-active { background:rgba(20,184,166,.2)!important; border-color:rgba(45,212,191,.55)!important; color:#ccfbf1!important; }
+  </style>
+  <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.158.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.158.0/examples/jsm/"}}</script>
+</head>
+<body>
+  <div id="canvas-container" aria-label="Interactive 3D anatomy viewer"></div>
+  <main id="app" class="p-4 md:p-6 flex flex-col justify-between gap-4">
+    <header class="flex justify-between gap-4 items-start">
+      <section class="panel interactive rounded-2xl p-4 w-80">
+        <div class="flex items-center justify-between"><div><p class="text-xs font-medium text-teal-300">MEDTWIN / RESEARCH</p><h1 class="text-xl font-semibold tracking-tight">Anatomy Intelligence</h1></div><span id="connection-status" class="chip rounded-full px-2 py-1 text-[10px]">● LIVE</span></div>
+        <p id="patient-demographics" class="text-xs text-slate-400 mt-1">PT-001 · Digital twin session</p>
+        <p id="sensor-metadata" class="text-[10px] text-slate-500 mt-0.5">Sensor: Awaiting Data</p>
+        <div class="grid grid-cols-2 gap-2 mt-4">
+          <div class="metric rounded-xl p-3"><p class="label">Heart rate</p><p class="font-mono text-2xl text-teal-300"><span id="hr-display">--</span><small class="text-sm"> bpm</small></p></div>
+          <div class="metric rounded-xl p-3"><p class="label">Risk index</p><p id="risk-display" class="font-mono text-2xl text-amber-300">--<small class="text-sm">%</small></p></div>
+        </div>
+        <label class="label block mt-4 mb-1" for="organ-selector">Anatomical model</label>
+        <select id="organ-selector" class="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm"><option value="Heart.glb">Heart · cardiovascular</option><option value="Brain.glb">Brain · neurovascular</option></select>
+        <div class="mt-3 flex gap-2"><button id="reset-view" class="flex-1 rounded-lg border border-slate-600 px-2 py-2 text-xs text-slate-200 hover:bg-slate-800">Reset view</button><button id="focus-detection" class="flex-1 rounded-lg border border-teal-700 px-2 py-2 text-xs text-teal-200 hover:bg-teal-950">Focus finding</button></div>
+      </section>
+      <section class="panel interactive rounded-2xl p-4 w-[22rem]">
+        <div class="flex justify-between items-center"><h2 class="font-semibold">Multimodal fusion</h2><span id="agreement-badge" class="chip rounded-full px-2 py-1 text-[10px]">Awaiting data</span></div>
+        <div class="mt-3 space-y-2 text-sm"><div class="flex justify-between border-b border-slate-700/70 pb-2"><span class="text-slate-400">ECG / CNN-LSTM</span><span id="ecg-pred" class="font-mono text-amber-300">—</span></div><div class="flex justify-between border-b border-slate-700/70 pb-2"><span class="text-slate-400">Vision / detector</span><span id="vis-pred" class="font-mono text-sky-300">—</span></div><div class="flex justify-between"><span class="text-slate-400">Fusion confidence</span><span id="fusion-score" class="font-mono text-teal-300">—</span></div></div>
+        <div class="mt-4 bg-slate-800/60 rounded-xl p-3 border border-slate-700/50 shadow-inner">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-semibold text-teal-300 uppercase tracking-widest">Cardio-Ultra Report</span>
+            <span id="arrhythmia-forecast" class="text-[10px] font-mono text-amber-300 px-2 py-0.5 rounded bg-amber-900/30 border border-amber-700/50">Risk: --</span>
+          </div>
+          <ul id="anomaly-alerts" class="text-[11px] text-rose-300 space-y-1 mb-3"></ul>
+          <div class="text-[9px] text-slate-500 uppercase tracking-widest mb-1">Recommended Interventions</div>
+          <ul id="recommended-interventions" class="text-xs text-slate-300 list-inside list-disc space-y-1"></ul>
+        </div>
+        <div class="mt-4"><div class="flex justify-between label"><span>Live ECG</span><span id="sample-age">Streaming</span></div><svg id="ecg-line" viewBox="0 0 300 54" preserveAspectRatio="none" aria-label="Live ECG trace"><polyline id="ecg-path" fill="none" stroke="#34d399" stroke-width="1.8" points="" /></svg></div>
+      </section>
+    </header>
+    <div class="flex justify-between items-end gap-4">
+      <section class="panel interactive rounded-2xl p-4 w-80 hidden lg:block">
+        <div class="flex justify-between"><h2 class="font-semibold">AI workspace</h2><span class="text-[10px] text-slate-400">API-ready</span></div>
+        <label class="label block mt-3 mb-1" for="model-selector">Algorithm</label>
+        <select id="model-selector" class="w-full rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-sm"><option value="vision-cnn">Vision A trained brain-MRI CNN</option><option value="ecg-lstm">Signal A ECG LSTM</option><option value="fusion-engine">Fusion A multimodal ensemble</option><option value="heart-disease-xgboost">Risk A Tabular XGBoost</option></select>
+        <div class="grid grid-cols-2 gap-2 mt-3"><button id="run-inference" class="rounded-lg bg-teal-500 px-3 py-2 text-xs font-semibold text-slate-950 hover:bg-teal-400">Run inference</button><button id="tracking-toggle" class="rounded-lg border border-slate-600 px-3 py-2 text-xs hover:bg-slate-800">Tracking: on</button></div>
+        <label class="label block mt-3 mb-1" for="mri-file">Brain MRI image</label>
+        <input id="mri-file" type="file" accept="image/png,image/jpeg" class="w-full text-[10px] text-slate-300 file:mr-2 file:rounded file:border-0 file:bg-slate-700 file:px-2 file:py-1 file:text-slate-100">
+        <button id="analyze-mri" class="mt-2 w-full rounded-lg border border-rose-700 px-3 py-2 text-xs text-rose-200 hover:bg-rose-950">Analyze MRI &amp; update brain twin</button>
+        <p id="vision-metrics" class="mt-1 text-[10px] text-slate-500">No trained MRI analysis loaded.</p>
+        <button id="annotation-toggle" class="mt-2 w-full rounded-lg border border-slate-600 px-3 py-2 text-xs text-slate-300 hover:bg-slate-800">Add clinical annotation</button>
+        <label class="label block mt-3 mb-1" for="clinical-report">Clinical report intake</label>
+        <textarea id="clinical-report" rows="2" class="w-full resize-none rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-xs" placeholder="Paste report text or a Dropbox-synced note…"></textarea>
+        <button id="submit-report" class="mt-2 w-full rounded-lg border border-sky-700 px-3 py-2 text-xs text-sky-200 hover:bg-sky-950">Parse report &amp; fuse</button>
+        <p id="workspace-result" class="mt-3 text-xs leading-5 text-slate-400">Select a model to invoke its documented API endpoint.</p>
+      </section>
+      <section class="panel interactive rounded-2xl p-4 w-full max-w-2xl">
+        <div class="flex justify-between items-center"><div><h2 class="font-semibold text-sm">Disease progression forecast</h2><p id="forecast-caption" class="text-xs text-slate-400 mt-1">Current morphology · baseline risk</p></div><span id="forecast-day" class="font-mono text-teal-300 text-sm">Day 0</span></div>
+        <input id="forecast-slider" aria-label="Forecast progression day" class="mt-4 w-full accent-teal-400" type="range" min="0" max="14" value="0">
+        <div class="flex justify-between text-[10px] text-slate-500 mt-1"><span>Current</span><span>+7 days</span><span>+14 days</span></div>
+        <div class="mt-3 flex gap-4 text-[11px] text-slate-400"><span><i class="inline-block w-2 h-2 rounded-full bg-rose-400 mr-1"></i>AI finding / heatmap</span><span><i class="inline-block w-2 h-2 rounded-full bg-teal-400 mr-1"></i>Tracked region</span><span id="annotation-count">0 annotations</span></div>
+      </section>
+      <p class="hidden xl:block max-w-52 text-[10px] leading-4 text-slate-500">Research prototype only. AI outputs support exploration and must not be used for clinical diagnosis.</p>
+    </div>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
