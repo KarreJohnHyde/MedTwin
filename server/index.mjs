@@ -17,7 +17,7 @@ const auditSecret = process.env.MEDTWIN_AUDIT_SECRET || randomBytes(32).toString
 const auditPath = resolve(root, process.env.MEDTWIN_AUDIT_PATH || "artifacts/audit/events.ndjson")
 const auditMemoryLimit = Math.max(20, Number(process.env.MEDTWIN_AUDIT_MEMORY_LIMIT || 250))
 const allowedOrigins = new Set(
-  (process.env.MEDTWIN_ALLOWED_ORIGINS || "http://localhost:8443,http://localhost:8444,http://127.0.0.1:8445,http://localhost:5173")
+  (process.env.MEDTWIN_ALLOWED_ORIGINS || "http://localhost:8443,http://localhost:8444,http://127.0.0.1:8444,http://localhost:8445,http://127.0.0.1:8445,http://localhost:5173")
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean),
