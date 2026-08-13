@@ -1,0 +1,7 @@
+allowBuilds:
+  unrs-resolver: set this to true or false
+minimumReleaseAgeExclude:
+  - '@types/three@0.185.4'
+  - framer-motion@13.0.0
+  - motion-dom@13.0.0
+  - motion-utils@13.0.0

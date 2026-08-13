@@ -8,10 +8,8 @@ __pycache__/
 
 # JavaScript dependencies and generated builds
 node_modules/
-next-dashboard/node_modules/
 .next/
 next-dashboard/.next/
-next-dashboard/
 *.tsbuildinfo
 
 # Local datasets, raw reports, and generated scratch output
