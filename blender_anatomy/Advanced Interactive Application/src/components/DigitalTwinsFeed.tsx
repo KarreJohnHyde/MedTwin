@@ -358,7 +358,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'pulmo', icon: '🫁', label: 'Pulmonary-Twin', system: 'Respiratory System',
-    glb: '/assets/Lungs.glb',
+    glb: '/assets/lungs_-_normal_study.glb',
     algo: 'Pulmo-ViT', algoType: 'Vision Transformer',
     waveType: 'pleth', waveLabel: 'PLETHYSMOGRAPH',
     accentHex: '#10b981', glowHex: 'rgba(16,185,129,0.5)',
@@ -378,7 +378,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'renal', icon: '🩸', label: 'Renal-Twin', system: 'Urinary System (Kidneys)',
-    glb: '/assets/Kidney.glb',
+    glb: '/assets/kidney.glb',
     algo: 'Renal-GNN', algoType: 'Graph Neural Network',
     waveType: 'renal', waveLabel: 'GLOMERULAR FILTRATION',
     accentHex: '#3b82f6', glowHex: 'rgba(59,130,246,0.5)',
@@ -398,7 +398,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'hepatic', icon: '🧪', label: 'Hepatic-Twin', system: 'Hepatobiliary System (Liver)',
-    glb: '/assets/Liver.glb',
+    glb: '/assets/liver.glb',
     algo: 'Hepa-CNN 3D', algoType: '3D Convolutional Network',
     waveType: 'hepatic', waveLabel: 'ENZYME KINETICS',
     accentHex: '#f59e0b', glowHex: 'rgba(245,158,11,0.5)',
@@ -418,7 +418,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'skeletal', icon: '🦴', label: 'Skeletal-Twin', system: 'Musculoskeletal System',
-    glb: '/assets/Skeleton.glb',
+    glb: '/assets/male_human_skeleton_-_zbrush_-_anatomy_study.glb',
     algo: 'Osteo-Net', algoType: 'U-Net Segmentation',
     waveType: 'renal', waveLabel: 'DENSITY OSCILLATION',
     accentHex: '#94a3b8', glowHex: 'rgba(148,163,184,0.4)',

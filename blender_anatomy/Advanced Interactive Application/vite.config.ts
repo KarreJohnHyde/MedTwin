@@ -34,6 +34,16 @@ export default defineConfig(({ mode }) => {
       port: parseInt(process.env.PORT || '8443'),
       strictPort: true,
       watch: { ignored: ['**/.figma/**'] },
+      proxy: {
+        '^/assets/.*\\.(glb|gltf|blend)$': {
+          target: 'http://localhost:8001',
+          changeOrigin: true,
+        },
+        '^/(docs|openapi\\.json|api)': {
+          target: 'http://localhost:8001',
+          changeOrigin: true,
+        },
+      },
     },
     preview: {
       host: '0.0.0.0',

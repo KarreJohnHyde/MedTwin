@@ -47,6 +47,7 @@ interface TwinViewportGridProps {
   markerType: MarkerType
   heartRate: number
   riskIndex: number
+  viewMode: "interior" | "exterior"
 }
 
 interface StoredWorkspace {
@@ -66,6 +67,7 @@ interface SplitRendererProps {
   markerType: MarkerType
   heartRate: number
   riskIndex: number
+  viewMode: "interior" | "exterior"
   commandByLeaf: Record<string, CameraCommand>
   openMenuId: string | null
   dropLeafId: string | null
@@ -146,6 +148,7 @@ function ViewportCell({
   markerType,
   heartRate,
   riskIndex,
+  viewMode,
   command,
   menuOpen,
   dropActive,
@@ -169,6 +172,7 @@ function ViewportCell({
   markerType: MarkerType
   heartRate: number
   riskIndex: number
+  viewMode: "interior" | "exterior"
   command?: CameraCommand
   menuOpen: boolean
   dropActive: boolean
@@ -237,6 +241,7 @@ function ViewportCell({
         markerType={activeResult ? markerType : "none"}
         heartRate={heartRate}
         riskIndex={riskIndex}
+        viewMode={viewMode}
         interactive
         command={command}
       />
@@ -370,6 +375,7 @@ function SplitRenderer(props: SplitRendererProps) {
         markerType={props.markerType}
         heartRate={props.heartRate}
         riskIndex={props.riskIndex}
+        viewMode={props.viewMode}
         command={props.commandByLeaf[node.id]}
         menuOpen={props.openMenuId === node.id}
         dropActive={props.dropLeafId === node.id}
@@ -491,6 +497,7 @@ export default function TwinViewportGrid({
   markerType,
   heartRate,
   riskIndex,
+  viewMode,
 }: TwinViewportGridProps) {
   const [workspace, setWorkspace] = useState(() => readWorkspace(patientId))
   const [maximizedLeafId, setMaximizedLeafId] = useState<string | null>(null)
@@ -641,6 +648,7 @@ export default function TwinViewportGrid({
     markerType,
     heartRate,
     riskIndex,
+    viewMode,
     commandByLeaf,
     openMenuId,
     dropLeafId,

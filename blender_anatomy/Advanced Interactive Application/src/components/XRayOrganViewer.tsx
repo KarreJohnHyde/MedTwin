@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react"
 import * as THREE from "three"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
+import { CSS2DRenderer, CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer.js"
 import type { MarkerType, OrganId } from "../lib/twins"
 import { ORGAN_REGISTRY } from "../lib/twins"
 
@@ -21,6 +22,7 @@ interface XRayOrganViewerProps {
   riskIndex?: number
   interactive?: boolean
   command?: CameraCommand
+  viewMode?: "interior" | "exterior"
 }
 
 function disposeObject(object: THREE.Object3D) {
@@ -43,14 +45,17 @@ export default function XRayOrganViewer({
   riskIndex = 0,
   interactive = true,
   command,
+  viewMode = "exterior",
 }: XRayOrganViewerProps) {
   const mountRef = useRef<HTMLDivElement>(null)
+  const labelMountRef = useRef<HTMLDivElement>(null)
   const modelRef = useRef<THREE.Object3D | null>(null)
   const baseScaleRef = useRef(1)
   const riskRef = useRef(riskIndex)
   const heartRateRef = useRef(heartRate)
   const sceneRef = useRef<THREE.Scene | null>(null)
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null)
+  const labelRendererRef = useRef<CSS2DRenderer | null>(null)
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null)
   const controlsRef = useRef<OrbitControls | null>(null)
   const animationRef = useRef(0)
@@ -74,6 +79,8 @@ export default function XRayOrganViewer({
     scene.fog = new THREE.FogExp2(0x050b17, 0.075)
     const camera = new THREE.PerspectiveCamera(34, 1, 0.01, 100)
     camera.position.set(2.8, 1.2, 4.8)
+    
+    // We will apply clipping globally or locally to materials.
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
@@ -83,6 +90,7 @@ export default function XRayOrganViewer({
     renderer.outputColorSpace = THREE.SRGBColorSpace
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.15
+    renderer.localClippingEnabled = true // Enable clipping planes
     mount.appendChild(renderer.domElement)
 
     const controls = new OrbitControls(camera, renderer.domElement)
@@ -128,8 +136,14 @@ export default function XRayOrganViewer({
     scanLine.rotation.x = Math.PI / 2
     scene.add(scanLine)
 
+    const labelRenderer = new CSS2DRenderer()
+    if (labelMountRef.current) {
+      labelMountRef.current.appendChild(labelRenderer.domElement)
+    }
+
     sceneRef.current = scene
     rendererRef.current = renderer
+    labelRendererRef.current = labelRenderer
     cameraRef.current = camera
     controlsRef.current = controls
 
@@ -139,10 +153,12 @@ export default function XRayOrganViewer({
       camera.aspect = width / height
       camera.updateProjectionMatrix()
       renderer.setSize(width, height, false)
+      labelRenderer.setSize(width, height)
     }
     resize()
     const observer = new ResizeObserver(resize)
     observer.observe(mount)
+    // Add CSS2DRenderer initialization later if we want floating DOM elements.
 
     const clock = new THREE.Clock()
     const animate = () => {
@@ -165,6 +181,7 @@ export default function XRayOrganViewer({
         modelRef.current.rotation.y += 0.00045
       }
       renderer.render(scene, camera)
+      labelRenderer.render(scene, camera)
     }
     animate()
 
@@ -178,8 +195,12 @@ export default function XRayOrganViewer({
       renderer.dispose()
       renderer.forceContextLoss()
       renderer.domElement.remove()
+      if (labelMountRef.current && labelRenderer.domElement.parentNode === labelMountRef.current) {
+        labelMountRef.current.removeChild(labelRenderer.domElement)
+      }
       sceneRef.current = null
       rendererRef.current = null
+      labelRendererRef.current = null
       cameraRef.current = null
       controlsRef.current = null
     }
@@ -208,35 +229,56 @@ export default function XRayOrganViewer({
         model.position.sub(center)
         baseScaleRef.current = 3.45 / Math.max(size.x, size.y, size.z)
         model.scale.setScalar(baseScaleRef.current)
+        
+        // Define a clipping plane that cuts halfway through the X-axis (sagittal plane)
+        // or Z-axis depending on the organ. Let's use Z-axis (coronal plane) to show interior.
+        const clipPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0.1)
+
         model.traverse((child) => {
           if (!(child instanceof THREE.Mesh)) return
           const source = Array.isArray(child.material)
             ? child.material[0]
             : child.material
           const material = new THREE.MeshPhysicalMaterial({
-            color:
-              source instanceof THREE.MeshStandardMaterial
-                ? source.color
-                : new THREE.Color(accent),
-            map:
-              source instanceof THREE.MeshStandardMaterial ? source.map : null,
-            roughness: 0.42,
-            metalness: 0.04,
-            clearcoat: 0.35,
-            emissive: new THREE.Color(accent),
-            emissiveIntensity: 0.05 + riskRef.current * 0.003,
-            transparent: true,
-            opacity: 0.94,
+            color: source instanceof THREE.MeshStandardMaterial ? source.color : new THREE.Color(accent),
+            map: source instanceof THREE.MeshStandardMaterial ? source.map : null,
+            roughness: 0.5,
+            metalness: 0.1,
+            clearcoat: 0.2,
+            clippingPlanes: [clipPlane], // Add clipping plane
+            side: THREE.DoubleSide // Important so interior walls render
           })
           const previous = child.material
           child.material = material
-          const previousMaterials = Array.isArray(previous)
-            ? previous
-            : [previous]
+          const previousMaterials = Array.isArray(previous) ? previous : [previous]
           previousMaterials.forEach((item) => item.dispose())
+          
+          // Store clip plane on the mesh userdata for toggling
+          child.userData.clipPlane = clipPlane
         })
         scene.add(model)
         modelRef.current = model
+
+        // Add 3D Labels based on the Organ Data
+        ORGAN_REGISTRY[organ].models.forEach((aiModel, index) => {
+          const div = document.createElement("div")
+          div.className = "flex items-center gap-2 rounded-full border border-cyan-400/30 bg-[#07101e]/80 px-2 py-1 backdrop-blur-md transition-opacity duration-500"
+          div.innerHTML = `
+            <div class="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee]"></div>
+            <div class="text-[9px] font-mono text-cyan-100 uppercase tracking-wider">${aiModel.name}</div>
+          `
+          const label = new CSS2DObject(div)
+          // Position labels pseudo-randomly around the organ based on index so they don't overlap
+          const angle = (index / ORGAN_REGISTRY[organ].models.length) * Math.PI * 2
+          const radius = Math.max(size.x, size.y, size.z) * baseScaleRef.current * 0.6
+          label.position.set(
+            Math.cos(angle) * radius,
+            (index % 2 === 0 ? 0.2 : -0.2) * radius,
+            Math.sin(angle) * radius
+          )
+          model.add(label)
+        })
+
         const distance = Math.max(
           3.2,
           Math.max(size.x, size.y, size.z) * baseScaleRef.current * 1.55,
@@ -263,6 +305,19 @@ export default function XRayOrganViewer({
       }
     }
   }, [accent, modelPath])
+
+  useEffect(() => {
+    // Toggle clipping plane based on viewMode
+    if (modelRef.current) {
+      modelRef.current.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.userData.clipPlane) {
+          const plane = child.userData.clipPlane as THREE.Plane
+          // To show exterior, move plane completely out of bounds. To show interior, bring to 0.
+          plane.constant = viewMode === "interior" ? 0 : 100
+        }
+      })
+    }
+  }, [viewMode])
 
   useEffect(() => {
     if (!command || !cameraRef.current || !controlsRef.current) return
@@ -329,6 +384,12 @@ export default function XRayOrganViewer({
           <div className="h-3 w-3 rounded-full border-2 border-white bg-rose-400 shadow-[0_0_18px_#fb7185]" />
         </div>
       ) : null}
+      
+      {/* 3D Labeling Layer (HTML Overlays) */}
+      <div 
+        ref={labelMountRef} 
+        className="pointer-events-none absolute inset-0 overflow-hidden" 
+      />
     </div>
   )
 }

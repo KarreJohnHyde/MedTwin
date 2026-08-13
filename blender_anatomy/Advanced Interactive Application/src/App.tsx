@@ -12,6 +12,7 @@ import {
   ChevronDown,
   Command,
   HeartPulse,
+  LayoutGrid,
   Menu,
   PanelLeftClose,
   PanelRightClose,
@@ -22,9 +23,13 @@ import {
 } from "lucide-react"
 import ContextPanel from "./components/ContextPanel"
 import RegistryBrowser from "./components/RegistryBrowser"
+import { DigitalTwinsFeed } from "./components/DigitalTwinsFeed"
 import useInferenceContext from "./hooks/useInferenceContext"
 import { PATIENTS } from "./lib/clinicalData"
 import { getDefaultModel, ORGAN_REGISTRY, type OrganId } from "./lib/twins"
+import { ViewMode } from "./lib/organData"
+import { OrganTelemetry } from "./components/OrganTelemetry"
+import { ClinicalGraphs } from "./components/ClinicalGraphs"
 
 type MobilePanel = "registry" | "workspace" | "context"
 
@@ -97,7 +102,7 @@ function ContextBanner({
   const patient = PATIENTS.find((item) => item.id === patientId) ?? PATIENTS[0]
   const twin = ORGAN_REGISTRY[organId]
   const model =
-    twin.models.find((item) => item.id === modelId) ?? twin.models[0]
+    twin?.models.find((item) => item.id === modelId) ?? twin?.models[0]
   return (
     <div className="flex h-9 shrink-0 items-center gap-2 overflow-x-auto border-b border-cyan-300/10 bg-cyan-300/[0.025] px-3 font-mono text-[9px] text-slate-500">
       <span className="flex shrink-0 items-center gap-1.5 text-cyan-200">
@@ -107,9 +112,9 @@ function ContextBanner({
       <span className="text-slate-700">/</span>
       <span className="shrink-0">{patient.name}</span>
       <span className="text-slate-700">/</span>
-      <span className="shrink-0 text-slate-300">{twin.shortName}</span>
+      <span className="shrink-0 text-slate-300">{twin?.shortName ?? organId}</span>
       <span className="text-slate-700">/</span>
-      <span className="shrink-0">{model.name}</span>
+      <span className="shrink-0">{model?.name ?? 'Model'}</span>
       <span className="text-slate-700">/</span>
       <span className="shrink-0">Day +{day}</span>
       <span className="ml-auto shrink-0 text-amber-200/70">
@@ -134,6 +139,7 @@ function CommandPalette({
     ["Open twin registry", "registry", "1"],
     ["Focus workspace", "workspace", "2"],
     ["Open context panel", "context", "3"],
+    ["Toggle twin feed", "feed", "4"],
     ["Advance forecast one day", "next-day", "→"],
     ["Reset forecast", "reset-day", "Home"],
   ].filter(([label]) => label.toLowerCase().includes(query.toLowerCase()))
@@ -192,6 +198,8 @@ export default function App() {
   const [leftOpen, setLeftOpen] = useState(true)
   const [rightOpen, setRightOpen] = useState(true)
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>("workspace")
+  const [mainView, setMainView] = useState<"workspace" | "feed">("workspace")
+  const [viewMode, setViewMode] = useState<ViewMode>("exterior")
   const [commandOpen, setCommandOpen] = useState(false)
   const [notificationOpen, setNotificationOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -201,7 +209,7 @@ export default function App() {
   const patient = PATIENTS.find((item) => item.id === patientId) ?? PATIENTS[0]
   const twin = ORGAN_REGISTRY[organId]
   const model =
-    twin.models.find((item) => item.id === modelId) ?? twin.models[0]
+    twin?.models.find((item) => item.id === modelId) ?? twin?.models[0]
   const riskIndex = inference.result
     ? Math.round(inference.result.fusion.risk * 100)
     : Math.min(97, 8 + forecastDay * 6)
@@ -216,7 +224,7 @@ export default function App() {
 
   const switchOrgan = useCallback(
     (nextOrgan: OrganId) => {
-      switchContext(nextOrgan, getDefaultModel(nextOrgan).id)
+      switchContext(nextOrgan, getDefaultModel(nextOrgan)?.id ?? "default")
     },
     [switchContext],
   )
@@ -226,6 +234,7 @@ export default function App() {
     if (action === "registry") setMobilePanel("registry")
     if (action === "workspace") setMobilePanel("workspace")
     if (action === "context") setMobilePanel("context")
+    if (action === "feed") setMainView((v) => (v === "workspace" ? "feed" : "workspace"))
     if (action === "next-day") setForecastDay((day) => Math.min(14, day + 1))
     if (action === "reset-day") setForecastDay(0)
     if (action === "maximize-area")
@@ -265,6 +274,7 @@ export default function App() {
       if (event.key === "ArrowLeft")
         setForecastDay((day) => Math.max(0, day - 1))
       if (event.key.toLowerCase() === "r") handleAction("reset-camera")
+      if (event.key === "4") handleAction("feed")
       if (event.key === "Home") setForecastDay(0)
       if (event.key === "[") setLeftOpen((value) => !value)
       if (event.key === "]") setRightOpen((value) => !value)
@@ -275,8 +285,8 @@ export default function App() {
 
   const resultLabel = useMemo(() => {
     if (!inference.result) return null
-    return `${patient.name} · ${twin.shortName} · ${model.name} · ${new Date(inference.result.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
-  }, [inference.result, model.name, patient.name, twin.shortName])
+    return `${patient.name} · ${twin?.shortName ?? organId} · ${model?.name ?? ''} · ${new Date(inference.result.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`
+  }, [inference.result, model?.name, patient.name, twin?.shortName, organId])
 
   return (
     <div className="flex h-dvh min-h-[560px] flex-col overflow-hidden bg-[#030712] text-slate-200">
@@ -361,6 +371,20 @@ export default function App() {
           </div>
           <button
             type="button"
+            onClick={() =>
+              setMainView((v) => (v === "workspace" ? "feed" : "workspace"))
+            }
+            className={`hidden h-8 items-center gap-1.5 rounded-lg border px-2.5 text-[9px] sm:flex ${
+              mainView === "feed"
+                ? "border-cyan-500/50 bg-cyan-500/10 text-cyan-300"
+                : "border-white/[0.07] text-slate-500 hover:bg-white/[0.04] hover:text-slate-300"
+            }`}
+          >
+            <LayoutGrid size={12} />
+            FEED
+          </button>
+          <button
+            type="button"
             onClick={() => setCommandOpen(true)}
             className="hidden h-8 items-center gap-1.5 rounded-lg border border-white/[0.07] px-2.5 text-[9px] text-slate-500 hover:bg-white/[0.04] hover:text-slate-300 sm:flex"
           >
@@ -396,63 +420,62 @@ export default function App() {
         day={forecastDay}
       />
 
-      <div className="hidden h-10 shrink-0 items-center gap-2 border-b border-white/[0.05] bg-[#050c18] px-3 sm:flex">
+      <div className="hidden h-12 shrink-0 items-center gap-2 border-b border-white/[0.05] bg-[#050c18] px-3 sm:flex">
         <button
           type="button"
           aria-label="Toggle twin registry"
           onClick={() => setLeftOpen((value) => !value)}
-          className="grid h-7 w-7 place-items-center rounded-md text-slate-600 hover:bg-white/[0.04] hover:text-slate-300"
+          className="grid h-8 w-8 place-items-center rounded-md text-slate-600 hover:bg-white/[0.04] hover:text-slate-300"
         >
-          {leftOpen ? <PanelLeftClose size={13} /> : <Menu size={13} />}
+          {leftOpen ? <PanelLeftClose size={14} /> : <Menu size={14} />}
         </button>
-        <div className="h-4 w-px bg-white/[0.06]" />
-        <label className="relative">
-          <span className="sr-only">Select organ twin</span>
-          <select
-            value={organId}
-            onChange={(event) => switchOrgan(event.target.value as OrganId)}
-            className="h-7 appearance-none rounded-md border border-white/[0.06] bg-slate-950/40 pl-2.5 pr-7 text-[9px] text-slate-300 outline-none focus:border-cyan-300/30"
-          >
-            {Object.values(ORGAN_REGISTRY).map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.displayName}
-              </option>
-            ))}
-          </select>
-          <ChevronDown
-            className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-slate-600"
-            size={10}
-          />
-        </label>
-        <label className="relative">
-          <span className="sr-only">Select AI model</span>
-          <select
-            value={modelId}
-            onChange={(event) => setModelId(event.target.value)}
-            className="h-7 appearance-none rounded-md border border-white/[0.06] bg-slate-950/40 pl-2.5 pr-7 text-[9px] text-slate-300 outline-none focus:border-cyan-300/30"
-          >
-            {twin.models.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-          <ChevronDown
-            className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-slate-600"
-            size={10}
-          />
-        </label>
-        <div className="ml-auto flex items-center gap-2 text-[8px] text-slate-600">
-          <Boxes size={11} />
-          <span>Drag registry twins into focused cells</span>
+        <div className="h-5 w-px bg-white/[0.06] mx-1" />
+        
+        {/* Horizontal Pill Bar Organ Selector */}
+        <div className="flex items-center gap-1.5 overflow-x-auto mx-2 hide-scrollbar py-1">
+          {Object.values(ORGAN_REGISTRY).map((item) => (
+            <button 
+              key={item.id}
+              onClick={() => switchOrgan(item.id as OrganId)}
+              className={`px-3.5 py-1.5 text-[10px] font-medium tracking-wide rounded-full transition-all duration-200 ${
+                organId === item.id 
+                ? 'bg-gradient-to-r from-cyan-500/20 to-teal-500/10 text-cyan-300 border border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.15)]' 
+                : 'bg-slate-900/40 text-slate-400 border border-transparent hover:bg-slate-800 hover:text-slate-200'
+              }`}
+            >
+              {item.displayName}
+            </button>
+          ))}
         </div>
+
+        {/* Interior/Exterior Toggle */}
+        <div className="flex items-center bg-slate-950/80 rounded-full p-0.5 border border-white/10 ml-auto shrink-0 shadow-inner">
+          <button 
+            onClick={() => setViewMode('exterior')} 
+            className={`px-3 py-1 rounded-full text-[9px] font-semibold tracking-wider transition-colors ${
+              viewMode === 'exterior' ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'
+            }`}
+          >
+            EXTERIOR
+          </button>
+          <button 
+            onClick={() => setViewMode('interior')} 
+            className={`px-3 py-1 rounded-full text-[9px] font-semibold tracking-wider transition-colors ${
+              viewMode === 'interior' ? 'bg-slate-700 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'
+            }`}
+          >
+            INTERIOR
+          </button>
+        </div>
+
+        <div className="h-5 w-px bg-white/[0.06] mx-1" />
         <button
           type="button"
           aria-label="Toggle context panel"
           onClick={() => setRightOpen((value) => !value)}
-          className="grid h-7 w-7 place-items-center rounded-md text-slate-600 hover:bg-white/[0.04] hover:text-slate-300"
+          className="grid h-8 w-8 place-items-center rounded-md text-slate-600 hover:bg-white/[0.04] hover:text-slate-300"
         >
-          <PanelRightClose size={13} />
+          <PanelRightClose size={14} />
         </button>
       </div>
 
@@ -476,7 +499,7 @@ export default function App() {
         <div
           className={`${
             mobilePanel === "registry" ? "block w-full" : "hidden"
-          } min-h-0 border-r border-white/[0.06] bg-[#07101e] sm:block ${
+          } min-h-0 border-r border-white/[0.06] bg-[#07101e] sm:block transition-all duration-300 ${
             leftOpen ? "sm:w-[236px]" : "sm:w-0 sm:overflow-hidden"
           }`}
         >
@@ -494,46 +517,74 @@ export default function App() {
             mobilePanel === "workspace" ? "flex" : "hidden"
           } min-w-0 flex-1 flex-col sm:flex`}
         >
-          <div className="min-h-0 flex-1">
-            <Suspense
-              fallback={<SurfaceFallback label="Loading 3D workspace" />}
-            >
-              <TwinViewportGrid
-                activeOrgan={organId}
-                activeModelId={modelId}
-                patientId={patientId}
-                onActiveContextChange={switchContext}
-                forecastDay={forecastDay}
-                finding={inference.result?.result.finding ?? ""}
-                markerType={inference.result?.marker_type ?? "none"}
-                heartRate={vitals.heartRate}
-                riskIndex={riskIndex}
-              />
-            </Suspense>
-            {resultLabel ? (
-              <div className="pointer-events-none absolute bottom-[204px] left-1/2 z-30 hidden -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[8px] text-slate-500 backdrop-blur-md lg:block">
-                Results are for:{" "}
-                <span className="text-slate-300">{resultLabel}</span>
+          {mainView === "feed" ? (
+            <div className="flex-1 overflow-y-auto min-h-0 bg-[#040a16]">
+              <DigitalTwinsFeed riskScore={riskIndex} />
+            </div>
+          ) : (
+            <>
+              <div className="min-h-0 flex-1 flex relative">
+                
+                {/* Left Telemetry Panel */}
+                <div className="hidden xl:flex w-64 border-r border-white/[0.04] bg-gradient-to-r from-[#030712] to-transparent p-4 overflow-y-auto z-10 custom-scrollbar">
+                  <div className="w-full mt-2">
+                    <OrganTelemetry organId={organId} />
+                  </div>
+                </div>
+
+                {/* Center WebGL Canvas */}
+                <div className="flex-1 min-w-0 relative h-full">
+                  <Suspense
+                    fallback={<SurfaceFallback label="Loading 3D workspace" />}
+                  >
+                    <TwinViewportGrid
+                      activeOrgan={organId}
+                      activeModelId={modelId}
+                      patientId={patientId}
+                      onActiveContextChange={switchContext}
+                      forecastDay={forecastDay}
+                      finding={inference.result?.result.finding ?? ""}
+                      markerType={inference.result?.marker_type ?? "none"}
+                      heartRate={vitals.heartRate}
+                      riskIndex={riskIndex}
+                      viewMode={viewMode}
+                    />
+                  </Suspense>
+                  
+                  {resultLabel ? (
+                    <div className="pointer-events-none absolute bottom-4 left-1/2 z-30 hidden -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/70 px-3 py-1 text-[8px] text-slate-500 backdrop-blur-md lg:block">
+                      Results are for:{" "}
+                      <span className="text-slate-300">{resultLabel}</span>
+                    </div>
+                  ) : null}
+                </div>
+
+                {/* Right Clinical Graphs Panel */}
+                <div className="hidden xl:block w-72 border-l border-white/[0.04] bg-gradient-to-l from-[#030712] to-transparent p-4 overflow-y-auto z-10 custom-scrollbar">
+                  <div className="w-full mt-2">
+                    <ClinicalGraphs organId={organId} viewMode={viewMode} />
+                  </div>
+                </div>
               </div>
-            ) : null}
-          </div>
-          <Suspense
-            fallback={
-              <div className="h-[188px] border-t border-white/[0.06] bg-[#07101e]" />
-            }
-          >
-            <ClinicalDock
-              organId={organId}
-              day={forecastDay}
-              onDayChange={setForecastDay}
-            />
-          </Suspense>
+              <Suspense
+                fallback={
+                  <div className="h-[188px] border-t border-white/[0.06] bg-[#07101e]" />
+                }
+              >
+                <ClinicalDock
+                  organId={organId}
+                  day={forecastDay}
+                  onDayChange={setForecastDay}
+                />
+              </Suspense>
+            </>
+          )}
         </main>
 
         <div
           className={`${
             mobilePanel === "context" ? "block w-full" : "hidden"
-          } min-h-0 border-l border-white/[0.06] sm:block ${
+          } min-h-0 border-l border-white/[0.06] sm:block transition-all duration-300 ${
             rightOpen ? "sm:w-[292px]" : "sm:w-0 sm:overflow-hidden"
           }`}
         >
