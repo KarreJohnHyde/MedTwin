@@ -318,7 +318,7 @@ interface TwinDef {
 const TWINS: TwinDef[] = [
   {
     id: 'cardio', icon: '🫀', label: 'Cardio-Twin', system: 'Cardiovascular System',
-    glb: '/Heart_anotomy.glb',
+    glb: '/assets/Heart_anotomy.glb',
     algo: 'Cardio-ResNet-50', algoType: 'Deep Residual CNN',
     waveType: 'ecg', waveLabel: 'ECG TELEMETRY',
     accentHex: '#2dd4bf', glowHex: 'rgba(45,212,191,0.5)',
@@ -338,7 +338,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'neuro', icon: '🧠', label: 'Neuro-Twin', system: 'Central Nervous System',
-    glb: '/Brain.glb',
+    glb: '/assets/Brain.glb',
     algo: 'Neuro-Transformer v4', algoType: 'Vision Transformer + Attention',
     waveType: 'eeg', waveLabel: 'EEG FREQUENCY BANDS',
     accentHex: '#a855f7', glowHex: 'rgba(168,85,247,0.5)',
@@ -358,7 +358,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'pulmo', icon: '🫁', label: 'Pulmonary-Twin', system: 'Respiratory System',
-    glb: '/Lungs.glb',
+    glb: '/assets/Lungs.glb',
     algo: 'Pulmo-ViT', algoType: 'Vision Transformer',
     waveType: 'pleth', waveLabel: 'PLETHYSMOGRAPH',
     accentHex: '#10b981', glowHex: 'rgba(16,185,129,0.5)',
@@ -378,7 +378,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'renal', icon: '🩸', label: 'Renal-Twin', system: 'Urinary System (Kidneys)',
-    glb: '/Kidney.glb',
+    glb: '/assets/Kidney.glb',
     algo: 'Renal-GNN', algoType: 'Graph Neural Network',
     waveType: 'renal', waveLabel: 'GLOMERULAR FILTRATION',
     accentHex: '#3b82f6', glowHex: 'rgba(59,130,246,0.5)',
@@ -398,7 +398,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'hepatic', icon: '🧪', label: 'Hepatic-Twin', system: 'Hepatobiliary System (Liver)',
-    glb: '/Liver.glb',
+    glb: '/assets/Liver.glb',
     algo: 'Hepa-CNN 3D', algoType: '3D Convolutional Network',
     waveType: 'hepatic', waveLabel: 'ENZYME KINETICS',
     accentHex: '#f59e0b', glowHex: 'rgba(245,158,11,0.5)',
@@ -418,7 +418,7 @@ const TWINS: TwinDef[] = [
   },
   {
     id: 'skeletal', icon: '🦴', label: 'Skeletal-Twin', system: 'Musculoskeletal System',
-    glb: '/Skeleton.glb',
+    glb: '/assets/Skeleton.glb',
     algo: 'Osteo-Net', algoType: 'U-Net Segmentation',
     waveType: 'renal', waveLabel: 'DENSITY OSCILLATION',
     accentHex: '#94a3b8', glowHex: 'rgba(148,163,184,0.4)',

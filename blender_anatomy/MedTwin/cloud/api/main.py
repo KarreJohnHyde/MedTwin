@@ -515,6 +515,10 @@ frontend_dir = os.path.join(MEDTWIN_ROOT, "frontend")
 if os.path.isdir(frontend_dir):
     app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
 
+# Mount PARENT_ROOT as /assets to serve .glb and .blend files
+if os.path.isdir(PARENT_ROOT):
+    app.mount("/assets", StaticFiles(directory=PARENT_ROOT), name="assets")
+
 
 # ══════════════════════════════════════════════════════════════
 #  ENDPOINTS
