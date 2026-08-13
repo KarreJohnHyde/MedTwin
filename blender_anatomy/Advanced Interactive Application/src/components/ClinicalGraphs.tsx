@@ -19,6 +19,13 @@ export const ClinicalGraphs: React.FC<ClinicalGraphsProps> = ({ organId, viewMod
   const graphsToDisplay = activeGraphs.length >= 2 ? activeGraphs.slice(0, 2) : organData.graphs.slice(0, 2);
 
   const renderAbstractGraph = (type: string) => {
+    const stableCellTone = (row: number, column: number) => {
+      const value = (row * 17 + column * 11 + type.length * 7) % 9;
+      if (value > 6) return "fill-cyan-500/65";
+      if (value > 3) return "fill-fuchsia-500/55";
+      return "fill-slate-800";
+    };
+
     switch (type) {
       case 'pv-loop':
       case 'kinematic-line':
@@ -58,7 +65,7 @@ export const ClinicalGraphs: React.FC<ClinicalGraphsProps> = ({ organId, viewMod
                   y={i * 10}
                   width="8"
                   height="8"
-                  className={Math.random() > 0.5 ? "fill-cyan-500/60" : Math.random() > 0.5 ? "fill-fuchsia-500/60" : "fill-slate-800"}
+                  className={stableCellTone(i, j)}
                   rx="2"
                 />
               ))
