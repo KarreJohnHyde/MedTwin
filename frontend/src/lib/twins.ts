@@ -1,76 +1,121 @@
-export type TwinCategory = "cardio" | "neuro" | "pulmo"
+export type AnatomyId = "heart" | "brain" | "nervous" | "skeletal" | "lungs" | "renal" | "digestive"
 
-export interface TwinDefinition {
-  id: string
-  name: string
-  category: TwinCategory
-  asset: string
-  source: string
+export type ViewMode = "exterior" | "interior" | "xray" | "mesh"
+
+export interface AnatomyDefinition {
+  id: AnatomyId
+  label: string
+  shortLabel: string
+  system: string
   description: string
-  accent: string
-  renderMode?: "pbr" | "xray"
+  source: string
+  color: string
+  secondaryColor: string
+  focus: string
+  metricLabel: string
+  metricValue: string
 }
 
-export const TWIN_DEFINITIONS: TwinDefinition[] = [
+export const ANATOMIES: AnatomyDefinition[] = [
   {
-    id: "heart-anatomy",
-    name: "Heart anatomy",
-    category: "cardio",
-    asset: "/Heart_anotomy.glb",
-    source: "Heart_anotomy.blend",
-    description: "Whole-heart anatomy with preserved PBR material maps.",
-    accent: "#fb7185",
-  },
-  {
-    id: "heart-interior",
-    name: "Interior heart",
-    category: "cardio",
-    asset: "/Interior_Heart.glb",
-    source: "interior_heart.blend",
-    description: "Interior cardiac chambers and valve structures.",
-    accent: "#f97316",
-  },
-  {
-    id: "heart-exterior",
-    name: "Exterior heart",
-    category: "cardio",
-    asset: "/Exterior_Heart.glb",
-    source: "exterior_heart.blend",
-    description: "External myocardium and coronary surface anatomy.",
-    accent: "#ef4444",
+    id: "heart",
+    label: "Heart",
+    shortLabel: "Cardiac",
+    system: "Cardiovascular system",
+    description:
+      "Chambers, myocardium, coronary surface and perfusion territories.",
+    source: "Procedural twin / GLB-ready",
+    color: "#ff6b7a",
+    secondaryColor: "#ffb35c",
+    focus: "Myocardial perfusion",
+    metricLabel: "Ejection fraction",
+    metricValue: "58%",
   },
   {
     id: "brain",
-    name: "Brain",
-    category: "neuro",
-    asset: "/Brain.glb",
-    source: "Brain.blend",
-    description: "Neuroanatomy twin for structural and functional connectivity views.",
-    accent: "#a78bfa",
+    label: "Brain",
+    shortLabel: "Neuro",
+    system: "Central nervous system",
+    description:
+      "Cortical regions, deep structures, connectome and focal ROI analysis.",
+    source: "Procedural twin / GLB-ready",
+    color: "#c784ff",
+    secondaryColor: "#5dd7ff",
+    focus: "Tissue morphology",
+    metricLabel: "Network efficiency",
+    metricValue: "0.71",
+  },
+  {
+    id: "nervous",
+    label: "Nervous system",
+    shortLabel: "Neural",
+    system: "Peripheral nervous system",
+    description: "Brain, spinal axis and peripheral conduction pathways.",
+    source: "Procedural neural mesh",
+    color: "#ffd75c",
+    secondaryColor: "#5dd7ff",
+    focus: "Signal conduction",
+    metricLabel: "Path integrity",
+    metricValue: "84%",
+  },
+  {
+    id: "skeletal",
+    label: "Skeletal system",
+    shortLabel: "Skeletal",
+    system: "Musculoskeletal system",
+    description:
+      "Axial and appendicular skeleton with joint and cortical stress ROIs.",
+    source: "Procedural skeletal mesh",
+    color: "#f1e8d2",
+    secondaryColor: "#ff9f43",
+    focus: "Cortical integrity",
+    metricLabel: "Bone density index",
+    metricValue: "0.89",
   },
   {
     id: "lungs",
-    name: "Lungs",
-    category: "pulmo",
-    asset: "/Lungs.glb",
-    source: "lungs.blend",
-    description: "Pulmonary anatomy twin with native material maps.",
-    accent: "#22d3ee",
+    label: "Lungs",
+    shortLabel: "Pulmonary",
+    system: "Respiratory system",
+    description:
+      "Lobar volume, airway tree, opacity regions and spread simulation.",
+    source: "Procedural twin / GLB-ready",
+    color: "#5dd7ff",
+    secondaryColor: "#5ee0a0",
+    focus: "Regional ventilation",
+    metricLabel: "FEV1 / FVC",
+    metricValue: "0.78",
   },
   {
-    id: "xray-lungs",
-    name: "X-ray lungs",
-    category: "pulmo",
-    asset: "/Lungs.glb",
-    source: "X-ray_lungs.blend",
-    description: "Radiographic inspection mode using the isolated lung twin.",
-    accent: "#2dd4bf",
-    renderMode: "xray",
+    id: "renal",
+    label: "Kidneys",
+    shortLabel: "Renal",
+    system: "Urinary system",
+    description:
+      "Bilateral renal morphology, parenchyma and perfusion territories.",
+    source: "Procedural renal mesh",
+    color: "#e88995",
+    secondaryColor: "#70d6c2",
+    focus: "Parenchymal perfusion",
+    metricLabel: "Filtration index",
+    metricValue: "92",
+  },
+  {
+    id: "digestive",
+    label: "Digestive tract",
+    shortLabel: "Gastro",
+    system: "Digestive system",
+    description:
+      "Stomach, intestinal tract and localized tissue response mapping.",
+    source: "Procedural digestive mesh",
+    color: "#ff9f72",
+    secondaryColor: "#e7c85d",
+    focus: "Tissue morphology",
+    metricLabel: "Motility index",
+    metricValue: "0.74",
   },
 ]
 
-export const CATEGORY_META: Record<TwinCategory, { label: string; color: string; description: string }> = {
-  cardio: { label: "Cardio Twin", color: "#fb7185", description: "Cardiac anatomy, signals, and hemodynamics" },
-  neuro: { label: "Neuro Twin", color: "#a78bfa", description: "Neuroanatomy and connectome analysis" },
-  pulmo: { label: "Pulmo Twin", color: "#22d3ee", description: "Lung anatomy and pulmonary function" },
-}
+export const ANATOMY_BY_ID = Object.fromEntries(
+  ANATOMIES.map((anatomy) => [anatomy.id, anatomy]),
+) as Record<AnatomyId, AnatomyDefinition>

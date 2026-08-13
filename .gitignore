@@ -16,6 +16,7 @@ next-dashboard/.next/
 data/
 report*.bin
 artifacts/xgb_heart_model.pkl
+artifacts/audit/
 infra/mosquitto/certs/
 *.log
 

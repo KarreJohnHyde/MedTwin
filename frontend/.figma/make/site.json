@@ -1,5 +1,6 @@
 {
-  "description": "This web application offers advanced operational and interactive features, enhancing user engagement and streamlining workflows for businesses.",
+  "title": "MedTwin Atlas | Anatomical Intelligence",
+  "description": "Anonymous multimodel anatomy simulation workspace with interactive 3D systems, spatial findings, model validation, and progression forecasting.",
   "robots": {
     "index": false
   },

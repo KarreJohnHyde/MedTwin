@@ -2,11 +2,21 @@
   "name": "medtwin-platform",
   "version": "1.0.0",
   "description": "MedTwin Full Stack Platform",
+  "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm:backend\" \"npm:frontend\" \"npm:open\"",
-    "backend": "uvicorn cloud.api.main:app --reload --port 8000",
-    "frontend": "cd next-dashboard && pnpm run dev",
-    "open": "node -e \"setTimeout(() => require('child_process').exec('start http://localhost:3000'), 4000)\""
+    "dev": "concurrently -n inference,gateway,frontend -c magenta,yellow,cyan \"npm:inference\" \"npm:gateway\" \"npm:frontend\"",
+    "inference": "python -m uvicorn inference.service:app --host 127.0.0.1 --port 8790",
+    "gateway": "node server/index.mjs",
+    "frontend": "npm --prefix frontend run dev",
+    "backend:clinical": "uvicorn cloud.api.main:app --reload --port 8000",
+    "build": "npm --prefix frontend run build",
+    "test:fusion": "python inference/fusion_engine.py --self-test",
+    "test:python": "python -m unittest discover -s tests -v",
+    "test:node": "node --test server/*.test.mjs",
+    "test:frontend": "pnpm --dir frontend test",
+    "test:e2e": "pnpm --dir frontend test:e2e",
+    "test": "npm run test:fusion && npm run test:python && npm run test:node && npm run test:frontend",
+    "assets:scan": "python scripts/anatomy_asset_pipeline.py"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

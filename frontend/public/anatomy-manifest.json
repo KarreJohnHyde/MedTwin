@@ -1,0 +1,414 @@
+{
+  "schema": "medtwin-anatomy-assets/v1",
+  "generated_at": "2026-08-13T17:44:35.155863+00:00",
+  "source_policy": "source-preserving-content-addressed-copy",
+  "render_contract": {
+    "format": "glTF 2.0",
+    "recommended_meshes": "named anatomical structures with stable node IDs",
+    "recommended_units": "meters with anatomical spacing metadata",
+    "recommended_optimization": "Draco geometry and KTX2/WebP textures"
+  },
+  "assets": [
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/assets/Brain.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/assets/heart-processed.gltf",
+      "status": "valid",
+      "detail": "glTF 2.0 JSON; validated but not staged because a GLB package is preferred",
+      "bytes": 35226419,
+      "staged": false
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/assets/Heart.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/assets/Heart_anotomy.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/Brain.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/heart-processed.gltf",
+      "status": "valid",
+      "detail": "glTF 2.0 JSON; validated but not staged because a GLB package is preferred",
+      "bytes": 35226419,
+      "staged": false
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/Heart.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/Heart_anotomy.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/Kidney.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/Liver.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/Lungs.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/dist/Skeleton.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/assets/Brain.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/assets/heart-processed.gltf",
+      "status": "valid",
+      "detail": "glTF 2.0 JSON; validated but not staged because a GLB package is preferred",
+      "bytes": 35226419,
+      "staged": false
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/assets/Heart.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/assets/Heart_anotomy.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/Brain.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/heart-processed.gltf",
+      "status": "valid",
+      "detail": "glTF 2.0 JSON; validated but not staged because a GLB package is preferred",
+      "bytes": 35226419,
+      "staged": false
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/Heart.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/Heart_anotomy.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/Kidney.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/Liver.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/Lungs.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/Advanced Interactive Application/public/Skeleton.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/Brain.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/brain_hologram.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/duodenum_pancreas_spleen.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 131
+    },
+    {
+      "source": "blender_anatomy/exterior_heart_-_high_detail.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 134
+    },
+    {
+      "source": "blender_anatomy/female_human_skeleton_-_zbrush_-_anatomy_study.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/Heart_anotomy.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/human_kidney.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/human_thorax.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/interior_heart_-_high_detail.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 134
+    },
+    {
+      "source": "blender_anatomy/kidney (1).glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/kidney (2).glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/kidney.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/liver.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/lungs_-_normal_study.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/lungs_inhale_front_view.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/male_human_skeleton_-_zbrush_-_anatomy_study.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/assets/Brain.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/assets/heart-processed.gltf",
+      "status": "valid",
+      "detail": "glTF 2.0 JSON; validated but not staged because a GLB package is preferred",
+      "bytes": 35226419,
+      "staged": false
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/assets/Heart.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/assets/Heart_anotomy.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/Brain.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/heart-processed.gltf",
+      "status": "valid",
+      "detail": "glTF 2.0 JSON; validated but not staged because a GLB package is preferred",
+      "bytes": 35226419,
+      "staged": false
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/Heart.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/Heart_anotomy.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/Kidney.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/Liver.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/Lungs.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/MedTwin/frontend/Skeleton.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 132
+    },
+    {
+      "source": "blender_anatomy/MedTwin/next-dashboard/public/assets/Brain.glb",
+      "status": "valid",
+      "detail": "glTF 2.0 binary",
+      "bytes": 30012348,
+      "sha256": "c133184adfc1f805ef1e075c1ee107202933b33dea9d53e4e820597b260c07e2",
+      "optimized": false,
+      "public_url": "/anatomy-optimized/Brain-c133184adfc1.glb",
+      "output_bytes": 30012348
+    },
+    {
+      "source": "blender_anatomy/MedTwin/next-dashboard/public/assets/heart-processed.gltf",
+      "status": "valid",
+      "detail": "glTF 2.0 JSON; validated but not staged because a GLB package is preferred",
+      "bytes": 35225666,
+      "staged": false
+    },
+    {
+      "source": "blender_anatomy/MedTwin/next-dashboard/public/assets/Heart.glb",
+      "status": "valid",
+      "detail": "glTF 2.0 binary",
+      "bytes": 26415900,
+      "sha256": "539fd545240420b461b0102c77e7e3a79f7538a5ab19e88a19f45f9c04b971b8",
+      "optimized": false,
+      "public_url": "/anatomy-optimized/Heart-539fd5452404.glb",
+      "output_bytes": 26415900
+    },
+    {
+      "source": "blender_anatomy/MedTwin/next-dashboard/public/assets/Heart_anotomy.glb",
+      "status": "valid",
+      "detail": "glTF 2.0 binary",
+      "bytes": 26415904,
+      "sha256": "52c9417c738afafd70ae893ccf3d07f6b0a442adfe11786cc7e2a5774b920a4d",
+      "optimized": false,
+      "public_url": "/anatomy-optimized/Heart_anotomy-52c9417c738a.glb",
+      "output_bytes": 26415904
+    },
+    {
+      "source": "blender_anatomy/MedTwin/next-dashboard/public/assets/lungs_-_normal_study.glb",
+      "status": "valid",
+      "detail": "glTF 2.0 binary",
+      "bytes": 25740600,
+      "sha256": "4e328b98ac8e8ac62ab6de2397765c8fa69d2470731c13971d362ac85251f265",
+      "optimized": false,
+      "public_url": "/anatomy-optimized/lungs_-_normal_study-4e328b98ac8e.glb",
+      "output_bytes": 25740600
+    },
+    {
+      "source": "blender_anatomy/pancreas.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/realistic_human_lungs.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/right_foot_-_ct_scan_surface_export.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/small_and_large_intestine.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/the_human_spinal_column.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    },
+    {
+      "source": "blender_anatomy/tomographic_scan_of_left_hand_bennetts_fracture.glb",
+      "status": "lfs-pointer",
+      "detail": "Fetch the Git LFS object before export",
+      "bytes": 133
+    }
+  ]
+}
