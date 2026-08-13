@@ -1,0 +1,14 @@
+{
+  "name": "blender-anatomy-root",
+  "version": "1.0.0",
+  "description": "Root package for MedTwin",
+  "scripts": {
+    "dev": "npm run dev --prefix MedTwin",
+    "start": "npm run dev --prefix MedTwin"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "three": "^0.185.1"
+  }
+}
