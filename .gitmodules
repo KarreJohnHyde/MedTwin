@@ -1,0 +1,3 @@
+[submodule "blender_anatomy/antigravity-blender-mcp"]
+	path = blender_anatomy/antigravity-blender-mcp
+	url = https://github.com/kc0ed/Blender-MCP-For-Antigravity.git
