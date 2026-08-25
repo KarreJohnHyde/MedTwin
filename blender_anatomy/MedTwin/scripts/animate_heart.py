@@ -108,4 +108,3 @@ if __name__ == "__main__":
     if hasattr(bpy.app, 'timers'):
         if not bpy.app.timers.is_registered(check_bpm_update):
             bpy.app.timers.register(check_bpm_update)
-
