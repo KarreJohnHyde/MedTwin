@@ -61,7 +61,7 @@ def apply_lub_dub_cycle(obj_name, bpm=72, fps=24):
     print(f"Success: {bpm} BPM heartbeat applied to '{obj_name}'.")
 
 def check_bpm_update():
-    global current_bpm
+    # removed unused `global current_bpm` because this function only reads the value
     if not hasattr(check_bpm_update, "last_applied_bpm"):
         check_bpm_update.last_applied_bpm = -1
 
@@ -108,4 +108,3 @@ if __name__ == "__main__":
     if hasattr(bpy.app, 'timers'):
         if not bpy.app.timers.is_registered(check_bpm_update):
             bpy.app.timers.register(check_bpm_update)
-
